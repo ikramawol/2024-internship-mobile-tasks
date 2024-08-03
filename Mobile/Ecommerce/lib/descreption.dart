@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/homePage.dart';
+import 'homePage.dart';
 import 'customCard.dart';
 import 'update.dart';
 
@@ -182,8 +182,7 @@ class _DescreptionState extends State<Descreption> {
                    onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) =>const UpdateProduct(
-                      )),
+                      MaterialPageRoute(builder: (context) => UpdateProduct(product: widget.product)),
                     );
                   },
                     style: ElevatedButton.styleFrom(
