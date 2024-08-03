@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/homePage.dart';
 import 'customCard.dart';
+import 'update.dart';
+
+import 'product.dart';
 class Descreption extends StatefulWidget {
-  const Descreption({super.key});
+
+  const Descreption({super.key, required this.product});
+  final Product product;
 
   @override
   State<Descreption> createState() => _DescreptionState();
@@ -21,7 +26,7 @@ class _DescreptionState extends State<Descreption> {
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [  
                 // const SizedBox(width: 20,),
-              Image.asset('images/Shoes.png'),
+              Image.asset(widget.product.image),
                 Positioned(
                   top: 20,
                   left: 20,
@@ -48,14 +53,14 @@ class _DescreptionState extends State<Descreption> {
                
             ],),
           
-           const Padding(
-             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+           Padding(
+             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
              child: Column(children: [
                 Row(
                       children: [
                         Text(
-                          'Men’s shoe',
-                          style: TextStyle(
+                          widget.product.category,
+                          style: const TextStyle(
                             color: Color(0xFFAAAAAA),
                             fontSize: 16,
                             fontFamily: 'Poppins',
@@ -63,9 +68,9 @@ class _DescreptionState extends State<Descreption> {
                             height: 0,
                           ),
                         ),
-                        Spacer(),
-                        Icon(Icons.star, color: Color.fromARGB(240, 255, 217, 0), size: 14),
-                        Text(
+                        const Spacer(),
+                        const Icon(Icons.star, color: Color.fromARGB(240, 255, 217, 0), size: 14),
+                        const Text(
                           '(4.5)',
                           style: TextStyle(
                             color: Color.fromARGB(255, 170, 170, 170),
@@ -77,12 +82,12 @@ class _DescreptionState extends State<Descreption> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         Text(
-                          'Derby Leather Shoes',
-                          style: TextStyle(
+                          widget.product.name,
+                          style: const TextStyle(
                             color: Color(0xFF3E3E3E),
                             fontSize: 20,
                             fontFamily: 'Poppins',
@@ -91,8 +96,8 @@ class _DescreptionState extends State<Descreption> {
                         ),
                         Spacer(),
                         Text(
-                          '\$120',
-                          style: TextStyle(
+                          "\$${widget.product.price}",
+                          style: const TextStyle(
                             color: Color(0xFF3E3E3E),
                             fontSize: 14,
                             fontFamily: 'Poppins',
@@ -101,8 +106,8 @@ class _DescreptionState extends State<Descreption> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Row(children: [
+                    const SizedBox(height: 10),
+                    const Row(children: [
                       Text(
                       'Size:',
                       style: TextStyle(
@@ -139,10 +144,10 @@ class _DescreptionState extends State<Descreption> {
                 ),
                 
               ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(20.0),
-              child: Text("A derby leather shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp (the upper part of the shoe). This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.",
-              style: TextStyle(fontSize: 14, fontFamily: 'Poppins',fontWeight: FontWeight.w500,color: Color(0xFF666666)),),
+              child: Text(widget.product.description,
+              style: const TextStyle(fontSize: 14, fontFamily: 'Poppins',fontWeight: FontWeight.w500,color: Color(0xFF666666)),),
             ),
             
               Padding(
@@ -155,12 +160,14 @@ class _DescreptionState extends State<Descreption> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
+                      MaterialPageRoute(builder: (context) => const HomePage(
+
+                      )),
                     );
                   },
                     style: OutlinedButton.styleFrom(
-                      minimumSize: Size(150, 48),
-                      side: BorderSide(color: Colors.red), shape:RoundedRectangleBorder(
+                      minimumSize: const Size(150, 48),
+                      side: const BorderSide(color: Colors.red), shape:RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),),
                     ),
                     child: const Text(
@@ -175,12 +182,13 @@ class _DescreptionState extends State<Descreption> {
                    onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
+                      MaterialPageRoute(builder: (context) =>const UpdateProduct(
+                      )),
                     );
                   },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(150, 48),
-                      backgroundColor: Color(0xFF3E50F3), shape:RoundedRectangleBorder(
+                      minimumSize: const Size(150, 48),
+                      backgroundColor: const Color(0xFF3E50F3), shape:RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       )
                     ),

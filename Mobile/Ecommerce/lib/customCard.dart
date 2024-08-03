@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/descreption.dart';
+import 'descreption.dart';
+import 'product.dart';
 // import 'package:flutter/widgets.dart';
 
 class CustomeCard extends StatelessWidget {
-  const CustomeCard({super.key});
-
+  const CustomeCard({super.key, required this.product}); 
+  final Product product;
+    
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Descreption()),
+          MaterialPageRoute(builder: (context) =>  Descreption(product: product)),
         );
       },
     
@@ -34,26 +36,26 @@ class CustomeCard extends StatelessWidget {
 
         child: Column(
           children: [
-            Image.asset('images/Shoe.png', fit: BoxFit.cover,),
+            Image.asset(product.image, fit: BoxFit.cover,),
             
             const SizedBox(height: 10),
-            const Padding(
-              padding: EdgeInsets.all(5.0),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
               child: Column(
                 children:[
                 Row(
                 children: [
                   
-                Text('Derby Leather Shoes',
-                style: TextStyle(
-                  color: Color(0xFF3E3E3E),
+                Text(product.name,
+                style: const TextStyle(
+                  color:  Color(0xFF3E3E3E),
                   fontSize: 20,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w500,
                   height: 0,),
                   ),
-                Spacer(),
-                Text('\$120', style: TextStyle(
+                const Spacer(),
+                Text(product.price as String, style: const TextStyle(
                   color: Color(0xFF3E3E3E),
                   fontSize: 14,
                   fontFamily: 'Poppins',
@@ -63,19 +65,19 @@ class CustomeCard extends StatelessWidget {
                 ),
               ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
-                  Text('Men’s shoe', style: TextStyle(
+                  Text(product.category, style: const TextStyle(
                     color: Color(0xFFAAAAAA),
                     fontSize: 12,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
                     height: 0,
                     ),),
-                  Spacer(),
-                  Icon(Icons.star, color: Color.fromARGB(240, 255, 217, 0), size: 14,),
-                  Text('(4.5)', style: TextStyle(
+                  const Spacer(),
+                  const Icon(Icons.star, color: Color.fromARGB(240, 255, 217, 0), size: 14,),
+                  const Text('(4.5)', style: TextStyle(
                     color: Color.fromARGB(255, 170, 170, 170),
                     fontSize: 14,
                     fontFamily: 'Poppins',
