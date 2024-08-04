@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'addProduct.dart';
-import 'customCard.dart';
-import 'search.dart';
-// import 'addProduct.dart';
+import 'add_product.dart';
+import 'custom_card.dart';
+import 'search_product.dart';
 import 'product.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key,});
- 
+  const HomePage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -25,7 +24,6 @@ class HomePage extends StatelessWidget {
                 color: const Color(0xFFCCCCCC),
                 borderRadius: BorderRadius.circular(11),
               ),
-              // child: Image.asset('images/gray.png', fit: BoxFit.cover,),
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),
@@ -80,7 +78,6 @@ class HomePage extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-
               child: Center(
                 child: Stack(
                   children: [
@@ -116,11 +113,13 @@ class HomePage extends StatelessWidget {
             MaterialPageRoute(builder: (context) => AddProduct()),
           );
         },
-        child: const Icon(Icons.add, color: Colors.white, size: 28.5,),
         backgroundColor: Color(0xFF3E50F3),
         shape: const CircleBorder(),
-        
-        
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 28.5,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(14.0),
@@ -143,10 +142,10 @@ class HomePage extends StatelessWidget {
                     height: 40,
                     width: 40,
                     decoration: BoxDecoration(
-                      color: Color(0xFFFEFEFE),
+                      color:const Color(0xFFFEFEFE),
                       border: Border.all(
                         width: 1,
-                        color: Color(0xFFD9D9D9),
+                        color: const Color(0xFFD9D9D9),
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -159,7 +158,8 @@ class HomePage extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Search()),
+                          MaterialPageRoute(
+                              builder: (context) => const Search()),
                         );
                       },
                     ),
@@ -173,42 +173,49 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 15),
-                    
                     CustomeCard(
                       product: Product(
                         name: "Derby Leather Shoes",
                         image: "images/Shoe.png",
-                        price : "\$120",
-                        category : "Men's shoe",
-                        description : "A derby leather shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp the upper part of the shoe. This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.", 
-                    ),),
+                        price: "120",
+                        category: "Men's shoe",
+                        description:
+                            "A derby leather shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp the upper part of the shoe. This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.",
+                      ),
+                    ),
                     const SizedBox(height: 15),
                     CustomeCard(
                       product: Product(
                         name: "Vans Shoes",
                         image: "images/Shoe.png",
-                        price : "\$170",
-                        category : "Men's shoe",
-                        description : "A Vans shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp the upper part of the shoe. This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.", 
-                    ),),
+                        price: "170",
+                        category: "Men's shoe",
+                        description:
+                            "A Vans shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp the upper part of the shoe. This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.",
+                      ),
+                    ),
                     const SizedBox(height: 15),
                     CustomeCard(
                       product: Product(
                         name: "Nike Shoes",
                         image: "images/Shoe.png",
-                        price : "\$150",
-                        category : "Men's shoe",
-                        description : "A Nike shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp the upper part of the shoe. This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.", 
-                    ),),
+                        price: "150",
+                        category: "Men's shoe",
+                        description:
+                            "A Nike shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp the upper part of the shoe. This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.",
+                      ),
+                    ),
                     const SizedBox(height: 15),
                     CustomeCard(
                       product: Product(
                         name: "Adidas Shoes",
                         image: "images/Shoe.png",
-                        price : "\$160",
-                        category : "Men's shoe",
-                        description : "A Adidas shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp the upper part of the shoe. This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.", 
-                    ),),
+                        price: "160",
+                        category: "Men's shoe",
+                        description:
+                            "A Adidas shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp the upper part of the shoe. This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.",
+                      ),
+                    ),
                     const SizedBox(height: 15),
                   ],
                 ),

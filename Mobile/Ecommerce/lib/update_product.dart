@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'homePage.dart';
-import 'descreption.dart';
+import 'home_page.dart';
+import 'descreption_page.dart';
 import 'product.dart';
 
 class UpdateProduct extends StatefulWidget {
   const UpdateProduct({super.key, required this.product});
   final Product product;
   @override
-  
   State<UpdateProduct> createState() => _UpdateProductState();
 }
 
 class _UpdateProductState extends State<UpdateProduct> {
-
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -82,20 +79,23 @@ class _UpdateProductState extends State<UpdateProduct> {
               ),
               const SizedBox(height: 12),
               LabelAndTextField(
-                controller: TextEditingController(text: widget.product.category),
+                controller:
+                    TextEditingController(text: widget.product.category),
                 label: 'category',
                 keyboardType: TextInputType.text,
               ),
               const SizedBox(height: 12),
               LabelAndTextField(
-                controller: TextEditingController(text: widget.product.price.toString()),
+                controller: TextEditingController(
+                    text: widget.product.price.toString()),
                 label: 'price',
                 keyboardType: TextInputType.number,
                 suffixIcon: const Icon(Icons.attach_money),
               ),
               const SizedBox(height: 12),
               LabelAndTextField(
-                controller: TextEditingController(text: widget.product.description),
+                controller:
+                    TextEditingController(text: widget.product.description),
                 label: 'description',
                 keyboardType: TextInputType.text,
                 maxLines: 3,
@@ -107,10 +107,12 @@ class _UpdateProductState extends State<UpdateProduct> {
                   ElevatedButton(
                     onPressed: () {
                       // Update the local state variables
-                    Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Descreption(product: widget.product)),
-                        );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Descreption(product: widget.product)),
+                      );
 
                       // Navigate back to the home page
                       // Navigator.pop(context);
@@ -135,9 +137,10 @@ class _UpdateProductState extends State<UpdateProduct> {
                     onPressed: () {
                       // Handle the delete action if needed
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HomePage()),
-                        );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()),
+                      );
                     },
                     style: OutlinedButton.styleFrom(
                       minimumSize: const Size(334, 52),
