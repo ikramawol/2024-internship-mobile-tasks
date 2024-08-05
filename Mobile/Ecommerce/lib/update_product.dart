@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+
 import 'descreption_page.dart';
+import 'home_page.dart';
 import 'product.dart';
 
 class UpdateProduct extends StatefulWidget {
@@ -28,7 +29,7 @@ class _UpdateProductState extends State<UpdateProduct> {
           },
         ),
         title: const Text(
-          "Update Product",
+          'Update Product',
           style: TextStyle(
             color: Colors.black,
             fontSize: 14,
@@ -60,7 +61,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      "Upload Image",
+                      'Upload Image',
                       style: TextStyle(
                         color: Color.fromARGB(255, 123, 123, 123),
                         fontSize: 14,
@@ -175,13 +176,13 @@ class LabelAndTextField extends StatelessWidget {
   final TextInputType keyboardType;
 
   const LabelAndTextField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.label,
     this.maxLines = 1,
     this.suffixIcon,
     required this.keyboardType,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

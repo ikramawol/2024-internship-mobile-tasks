@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'descreption_page.dart';
 import 'product.dart';
 // import 'package:flutter/widgets.dart';
@@ -59,7 +60,7 @@ class CustomeCard extends StatelessWidget {
                       ),
                       const Spacer(),
                       Text(
-                        product.price as String,
+                        product.price,
                         style: const TextStyle(
                           color: Color(0xFF3E3E3E),
                           fontSize: 14,
@@ -171,11 +172,11 @@ class LabelAndTextField extends StatelessWidget {
   final Widget? suffixIcon;
 
   const LabelAndTextField({
-    Key? key,
+    super.key,
     required this.label,
     this.maxLines = 1,
     this.suffixIcon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +194,7 @@ class LabelAndTextField extends StatelessWidget {
         TextField(
           maxLines: maxLines,
           decoration: InputDecoration(
-            fillColor: Color(0xFFF0F0F0),
+            fillColor: const Color(0xFFF0F0F0),
             filled: true,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),

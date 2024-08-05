@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'home_page.dart';
 
 class AddProduct extends StatelessWidget {
@@ -8,12 +9,12 @@ class AddProduct extends StatelessWidget {
   final String? description;
 
   const AddProduct({
-    Key? key,
+    super.key,
     this.name,
     this.category,
     this.price,
     this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class AddProduct extends StatelessWidget {
           },
         ),
         title: const Text(
-          "Add Product",
+          'Add Product',
           style: TextStyle(
             color: Colors.black,
             fontSize: 14,
@@ -69,7 +70,7 @@ class AddProduct extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      "Upload Image",
+                      'Upload Image',
                       style: TextStyle(
                         color: Color.fromARGB(255, 123, 123, 123),
                         fontSize: 14,
@@ -178,13 +179,13 @@ class LabelAndTextField extends StatelessWidget {
   final TextInputType keyboardType;
 
   const LabelAndTextField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.label,
     this.maxLines = 1,
     this.suffixIcon,
     required this.keyboardType,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

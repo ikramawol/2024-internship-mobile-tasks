@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
-import 'custom_card.dart';
-import 'update_product.dart';
 
+import 'custom_card.dart';
+import 'home_page.dart';
 import 'product.dart';
+import 'update_product.dart';
 
 class Descreption extends StatefulWidget {
   const Descreption({super.key, required this.product});
@@ -98,7 +98,7 @@ class _DescreptionState extends State<Descreption> {
                         ),
                         Spacer(),
                         Text(
-                          "\$${widget.product.price}",
+                          '\$${widget.product.price}',
                           style: const TextStyle(
                             color: Color(0xFF3E3E3E),
                             fontSize: 14,
@@ -147,7 +147,7 @@ class _DescreptionState extends State<Descreption> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Text(
                   widget.product.description,
                   style: const TextStyle(
