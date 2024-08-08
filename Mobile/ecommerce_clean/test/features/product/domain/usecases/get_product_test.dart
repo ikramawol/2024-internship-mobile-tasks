@@ -21,16 +21,16 @@ void main(){
     name: 'Nike shoes',
     catagory: 'Men\'s',
     description: 'its a brand shoes',
-    price: '100',
-    image: 'image',
+    price: 100,
+    imageUrl: 'image',
   ),
   ProductEntity(
     id: '2',
     name: 'Adidas shoes',
     catagory: 'Men\'s',
     description: 'its a shoes brand',
-    price: '100',
-    image: 'image',
+    price: 100,
+    imageUrl: 'image',
   )];
 
   for (var product in testProductDetail) {

@@ -23,8 +23,8 @@ void main(){
       name: 'Nike shoes',
       catagory: 'Men\'s',
       description: 'its a brand shoes',
-      price: '100',
-      image: 'image',
+      price: 100,
+      imageUrl: 'image',
     );
 
 
