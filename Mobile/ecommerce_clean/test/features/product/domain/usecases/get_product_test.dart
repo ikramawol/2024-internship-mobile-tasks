@@ -15,7 +15,7 @@ void main(){
     getProduct = GetProduct(mockProductRepository);
   });
 
-  const testProductDetail = [
+  const testProductDetail = 
     ProductEntity(
     id: '1',
     name: 'Nike shoes',
@@ -23,33 +23,23 @@ void main(){
     description: 'its a brand shoes',
     price: 100,
     imageUrl: 'image',
-  ),
-  ProductEntity(
-    id: '2',
-    name: 'Adidas shoes',
-    catagory: 'Men\'s',
-    description: 'its a shoes brand',
-    price: 100,
-    imageUrl: 'image',
-  )];
-
-  for (var product in testProductDetail) {
-
+  );
+  
     test(
       'should get the product by id',
       ()async {
         //arrange
         when(
-          mockProductRepository.getProduct(product.id)
+          mockProductRepository.getProduct(testProductDetail.id)
           ).thenAnswer((_) async => const Right(testProductDetail));
         //act
-        final result = await getProduct.excecute(product.id);
+        final result = await getProduct.excecute(testProductDetail.id);
         //assert
         expect(result, const Right(testProductDetail));
-        verify(mockProductRepository.getProduct(product.id));
+        verify(mockProductRepository.getProduct(testProductDetail.id));
         verifyNoMoreInteractions(mockProductRepository);
       }
     );
   }
-}
+
 

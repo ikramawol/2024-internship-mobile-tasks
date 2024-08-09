@@ -23,7 +23,6 @@ class ProductModel extends ProductEntity{
     name: json['name'] ?? '',
     catagory: json['catagory'] ?? '',
     description: json['description'] ?? '',
-    // price: json['price'] ?? '',
     price: json['price'] is int
             ? json['price']
             : int.tryParse(json['price'].toString()) ?? 0,
@@ -38,4 +37,17 @@ class ProductModel extends ProductEntity{
     "price": price,
     "imageUrl": imageUrl,
   };
+
+  ProductEntity toEntity() => ProductEntity(
+    id: id,
+    name: name,
+    catagory: catagory,
+    description: description,
+    price: price,
+    imageUrl: imageUrl,
+  );
+
+  static List<ProductEntity> toEntityList(List<ProductModel> models) {
+    return models.map((model) => model.toEntity()).toList();
+  }
 }

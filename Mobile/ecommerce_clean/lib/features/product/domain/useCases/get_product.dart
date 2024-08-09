@@ -8,7 +8,7 @@ class GetProduct{
   final ProductRepository productRepository;
   GetProduct(this.productRepository);
 
-  Future<Either<Failure, List<ProductEntity>>> excecute(String id){
+  Future<Either<Failure, ProductEntity>> excecute(String id){
     return productRepository.getProduct(id);
   }
 }

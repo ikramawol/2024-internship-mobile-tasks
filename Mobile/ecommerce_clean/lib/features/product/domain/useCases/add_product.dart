@@ -7,7 +7,7 @@ class AddProduct{
   final ProductRepository productRepository;
   AddProduct(this.productRepository);
 
-  Future<Either<Failure, ProductEntity>> excecute(ProductEntity product){
+  Future<Either<Failure, void>> excecute(ProductEntity product){
     return productRepository.addProduct(product);
   }
 }
