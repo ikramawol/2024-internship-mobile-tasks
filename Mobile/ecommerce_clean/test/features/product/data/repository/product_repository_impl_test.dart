@@ -14,12 +14,17 @@ import '../../../../helper/test_helper.mocks.dart';
 
 void main(){
   late MockProductRemoteDataSource mockProductRemoteDataSource;
+  late MockInternetConnectionChecker mockInternetConnectionChecker;
+
   late ProductRepositoryImpl productRepositoryImpl;
 
   setUp((){
     mockProductRemoteDataSource = MockProductRemoteDataSource();
+    mockInternetConnectionChecker = MockInternetConnectionChecker();
     productRepositoryImpl = ProductRepositoryImpl(
       productRemoteDataSource: mockProductRemoteDataSource,
+      internetConnectionChecker: mockInternetConnectionChecker,
+
     );
   });
 
@@ -48,12 +53,14 @@ void main(){
       'shoud return current product when a call to data source is successful',
       () async {
 
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.getProduct(testId))
         .thenAnswer((_) async => testProductModel,);
 
         final result = await productRepositoryImpl.getProduct(testId);
 
         expect(result, equals(const Right(testProductEntity)));
+        verify(mockInternetConnectionChecker.hasConnection);
         verify(mockProductRemoteDataSource.getProduct(testId));
         verifyNoMoreInteractions(mockProductRemoteDataSource);
       }
@@ -63,7 +70,7 @@ void main(){
     test(
       'should return a ServerFailure when a call to data source fails with a server error',
       () async {
-
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.getProduct(testId))
         .thenThrow((ServerException()));
 
@@ -79,7 +86,7 @@ void main(){
     test(
       'should return a NetworkFailure when a call to data source fails with a network error',
       () async {
-
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.getProduct(testId))
         .thenThrow((const SocketException('Failed to connect to the network')));
 
@@ -97,7 +104,7 @@ void main(){
     test(
       'shoud return all product when a call to data source is successful',
       () async {
-
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.getAllProduct())
         .thenAnswer((_) async => [testProductModel]);
 
@@ -118,7 +125,7 @@ void main(){
     test(
       'should return a ServerFailure when a call to data source fails with a server error',
       () async {
-
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.getAllProduct())
         .thenThrow((ServerException()));
 
@@ -134,7 +141,7 @@ void main(){
     test(
       'should return a NetworkFailure when a call to data source fails with a network error',
       () async {
-
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.getAllProduct())
         .thenThrow((const SocketException('Failed to connect to the network')));
 
@@ -153,6 +160,7 @@ void main(){
       'shoud return current product when a call to data source is successful',
       () async {
 
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.addProduct(testProductModel))
         .thenAnswer((_) async => testProductModel);
 
@@ -169,6 +177,7 @@ void main(){
       'should return a ServerFailure when a call to data source fails with a server error',
       () async {
 
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.addProduct(testProductModel))
         .thenThrow((ServerException()));
 
@@ -185,6 +194,7 @@ void main(){
       'should return a NetworkFailure when a call to data source fails with a network error',
       () async {
 
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.addProduct(testProductModel))
         .thenThrow((const SocketException('Failed to connect to the network')));
 
@@ -203,7 +213,7 @@ void main(){
     test(
       'shoud return current product when a call to data source is successful',
       () async {
-
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.updateProduct(testProductModel))
         .thenAnswer((_) async => testProductModel);
 
@@ -219,7 +229,7 @@ void main(){
     test(
       'should return a ServerFailure when a call to data source fails with a server error',
       () async {
-
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.updateProduct(testProductModel))
         .thenThrow((ServerException()));
 
@@ -235,7 +245,7 @@ void main(){
     test(
       'should return a NetworkFailure when a call to data source fails with a network error',
       () async {
-
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.updateProduct(testProductModel))
         .thenThrow((const SocketException('Failed to connect to the network')));
 
@@ -253,13 +263,14 @@ void main(){
     test(
       'shoud return current product when a call to data source is successful',
       () async {
-
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.deleteProduct(testId))
         .thenAnswer((_) async => testProductModel);
 
         final result = await productRepositoryImpl.deleteProduct(testId);
 
         expect(result, equals(const Right(unit)));
+        verify(mockInternetConnectionChecker.hasConnection);
         verify(mockProductRemoteDataSource.deleteProduct(testId));
         verifyNoMoreInteractions(mockProductRemoteDataSource);
       }
@@ -270,6 +281,7 @@ void main(){
       'should return a ServerFailure when a call to data source fails with a server error',
       () async {
 
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.deleteProduct(testId))
         .thenThrow((ServerException()));
 
@@ -277,6 +289,7 @@ void main(){
 
         expect(result, const Left(ServerFailure('An error has occured in the server')));
         verify(mockProductRemoteDataSource.deleteProduct(testId));
+        verify(mockInternetConnectionChecker.hasConnection);
         verifyNoMoreInteractions(mockProductRemoteDataSource);
       }
 
@@ -285,7 +298,7 @@ void main(){
     test(
       'should return a NetworkFailure when a call to data source fails with a network error',
       () async {
-
+        when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
         when(mockProductRemoteDataSource.deleteProduct(testId))
         .thenThrow((const SocketException('Failed to connect to the network')));
 

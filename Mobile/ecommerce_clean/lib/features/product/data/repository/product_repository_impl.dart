@@ -7,69 +7,98 @@ import 'package:ecommerce_clean/features/product/data/data_sources/remote_data_s
 import 'package:ecommerce_clean/features/product/data/models/product_model.dart';
 import 'package:ecommerce_clean/features/product/domain/entities/product.dart';
 import 'package:ecommerce_clean/features/product/domain/repository/product_repository.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+
 
 class ProductRepositoryImpl extends ProductRepository{
 
+  late final InternetConnectionChecker internetConnectionChecker;
+  // final ProductRemoteDataSource productRemoteDataSource;
+
   late final ProductRemoteDataSource productRemoteDataSource;
-  ProductRepositoryImpl({required this.productRemoteDataSource});
+  ProductRepositoryImpl({
+    required this.productRemoteDataSource,
+    required this.internetConnectionChecker,
+  });
   
   @override
   Future<Either<Failure, List<ProductEntity>>> getAllProduct () async {
-     try {
-      final result = await productRemoteDataSource.getAllProduct();
-      return Right(ProductModel.toEntityList(result));
-    } on ServerException {
-      return const Left(ServerFailure('An error has occured in the server'));
-    } on SocketException{
+    if (await internetConnectionChecker.hasConnection){
+      try {
+        final result = await productRemoteDataSource.getAllProduct();
+        return Right(ProductModel.toEntityList(result));
+      } on ServerException {
+        return const Left(ServerFailure('An error has occured in the server'));
+      } on SocketException{
+        return const Left(ConnectionFailure('Failed to connect'));
+      }
+    } else{
       return const Left(ConnectionFailure('Failed to connect'));
-    }
+    }  
   }
 
   @override
   Future<Either<Failure, ProductEntity>> getProduct (String id) async{
-    try {
-      final result = await productRemoteDataSource.getProduct(id);
-      return Right(result.toEntity());
-    } on ServerException {
-      return const Left(ServerFailure('An error has occured in the server'));
-    } on SocketException{
-      return const Left(ConnectionFailure('Failed to connect'));
+    if (await internetConnectionChecker.hasConnection){
+      try {
+        final result = await productRemoteDataSource.getProduct(id);
+        return Right(result.toEntity());
+      } on ServerException {
+        return const Left(ServerFailure('An error has occured in the server'));
+      } on SocketException{
+        return const Left(ConnectionFailure('Failed to connect'));
+      }
+    } else{
+      return const Left(ConnectionFailure('No internet connection'));
     }
   }
   
   @override
   Future<Either<Failure, void>> addProduct (ProductEntity product) async {
-    try {
-      await productRemoteDataSource.addProduct(product as ProductModel);
-      return const Right(unit);
-    } on ServerException {
-      return const Left(ServerFailure('An error has occured in the server'));
-    } on SocketException{
-      return const Left(ConnectionFailure('Failed to connect'));
-    }
+    if (await internetConnectionChecker.hasConnection){
+      try {
+        await productRemoteDataSource.addProduct(product as ProductModel);
+        return const Right(unit);
+      } on ServerException {
+        return const Left(ServerFailure('An error has occured in the server'));
+      } on SocketException{
+        return const Left(ConnectionFailure('Failed to connect'));
+      }
+    } else{
+      return const Left(ConnectionFailure('No internet connection'));
+    }  
+    
   }
 
   @override
   Future<Either<Failure, ProductEntity>> updateProduct (ProductEntity product) async {
-    try {
-      final result = await productRemoteDataSource.updateProduct(product as ProductModel);
-      return Right(result.toEntity());
-    } on ServerException {
-      return const Left(ServerFailure('An error has occured in the server'));
-    } on SocketException{
-      return const Left(ConnectionFailure('Failed to connect'));
+    if (await internetConnectionChecker.hasConnection){
+      try {
+        final result = await productRemoteDataSource.updateProduct(product as ProductModel);
+        return Right(result.toEntity());
+      } on ServerException {
+        return const Left(ServerFailure('An error has occured in the server'));
+      } on SocketException{
+        return const Left(ConnectionFailure('Failed to connect'));
+      }
+    } else {
+      return const Left(ConnectionFailure('No internet connection'));
     }
   }
 
   @override
   Future<Either<Failure, void>> deleteProduct (String id) async {
-    try {
-      await productRemoteDataSource.deleteProduct(id);
-      return const Right(unit);
-    } on ServerException {
-      return const Left(ServerFailure('An error has occured in the server'));
-    } on SocketException{
-      return const Left(ConnectionFailure('Failed to connect'));
+    if (await internetConnectionChecker.hasConnection){  
+      try {
+        await productRemoteDataSource.deleteProduct(id);
+        return const Right(unit);
+      } on ServerException {
+        return const Left(ServerFailure('An error has occured in the server'));
+      } on SocketException{
+        return const Left(ConnectionFailure('Failed to connect'));
+      }
+    } else {
+      return const Left(ConnectionFailure('No internet connection'));
     }
   }
 
