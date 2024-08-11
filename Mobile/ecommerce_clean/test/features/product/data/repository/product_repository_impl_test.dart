@@ -116,8 +116,8 @@ void main(){
         );
 
         expect(productFromRepository, equals(([testProductEntity])));
-        // verify(mockProductRemoteDataSource.getAllProduct());
-        // verifyNoMoreInteractions(mockProductRemoteDataSource);
+        verify(mockProductRemoteDataSource.getAllProduct());
+        verifyNoMoreInteractions(mockProductRemoteDataSource);
       }
 
     );

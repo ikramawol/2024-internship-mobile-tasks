@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class ProductEntity extends Equatable {
-  
+
+  ///Constructor
   const ProductEntity({
     required this.id,
     required this.name, 
