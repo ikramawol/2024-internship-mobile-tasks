@@ -15,7 +15,7 @@ import '../../../../helper/test_helper.mocks.dart';
 void main(){
   late MockProductRemoteDataSource mockProductRemoteDataSource;
   late MockInternetConnectionChecker mockInternetConnectionChecker;
-
+  late MockProductLocalDataSource mockProductLocalDataSource;
   late ProductRepositoryImpl productRepositoryImpl;
 
   setUp((){
@@ -24,7 +24,7 @@ void main(){
     productRepositoryImpl = ProductRepositoryImpl(
       productRemoteDataSource: mockProductRemoteDataSource,
       internetConnectionChecker: mockInternetConnectionChecker,
-
+      productLocalDataSource: mockProductLocalDataSource,
     );
   });
 
