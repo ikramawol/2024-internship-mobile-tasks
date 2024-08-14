@@ -17,13 +17,14 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource{
   ProductLocalDataSourceImpl ({required this.sharedPreferences});
   
   @override
-  Future<void> cacheProduct({required ProductModel? productCache}) {
+  Future<void> cacheProduct({required ProductModel? productCache}) async {
     
     if (productCache != null){
-      sharedPreferences.setString(
-        cachedProduct, json.encode(
-          productCache.toJson()));
-      return Future.value();
+      final jsonString = json.encode(productCache.toJson());
+      final result = await sharedPreferences.setString(cachedProduct, jsonString);
+      if (!result) {
+        throw CacheException();
+      }
     } else {
       throw CacheException();
     }

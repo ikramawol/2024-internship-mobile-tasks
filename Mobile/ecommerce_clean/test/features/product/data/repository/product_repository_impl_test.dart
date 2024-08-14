@@ -17,14 +17,18 @@ void main(){
   late MockInternetConnectionChecker mockInternetConnectionChecker;
   late MockProductLocalDataSource mockProductLocalDataSource;
   late ProductRepositoryImpl productRepositoryImpl;
+  // late MockSharedPreferences mockSharedPreferences;
 
   setUp((){
     mockProductRemoteDataSource = MockProductRemoteDataSource();
     mockInternetConnectionChecker = MockInternetConnectionChecker();
+    mockProductLocalDataSource = MockProductLocalDataSource();
+    // mockSharedPreferences = MockSharedPreferences();
     productRepositoryImpl = ProductRepositoryImpl(
       productRemoteDataSource: mockProductRemoteDataSource,
       internetConnectionChecker: mockInternetConnectionChecker,
       productLocalDataSource: mockProductLocalDataSource,
+
     );
   });
 
