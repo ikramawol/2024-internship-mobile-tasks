@@ -23,7 +23,7 @@ const testId = "6672752cbd218790438efdb0";
 const testProduct = ProductModel(
   id: "6672752cbd218790438efdb0",
   name: "Anime website",
-  catagory: "Anime",
+  category: "Anime",
   description: "Explore anime characters.",
   price: 123,
   imageUrl: "https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg",
@@ -97,6 +97,8 @@ const testProduct = ProductModel(
     ()async{
    
     when(mockHttpClient.post(Uri.parse(Urls.baseUrl),
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode(testProduct.toJson()),
     )).thenAnswer((_)async => http.Response('Created', 201));          
       
     await productRemoteDataSourceImpl.addProduct(testProduct);
@@ -107,7 +109,9 @@ const testProduct = ProductModel(
     'should throw a server exception when the response code is 404 or other',
     ()async{
 
-      when(mockHttpClient.post(Uri.parse(Urls.baseUrl))
+      when(mockHttpClient.post(Uri.parse(Urls.baseUrl),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(testProduct.toJson()),)
       ).thenAnswer((_)async => http.Response(
         'Bad Request', 400));
 
@@ -123,14 +127,17 @@ const testProduct = ProductModel(
       final jsonResponse = {
         "id": testProduct.id,
         "name": testProduct.name,
-        "catagory": testProduct.catagory,
+        "category": testProduct.category,
         "description": testProduct.description,
         "price": testProduct.price,
         "imageUrl": testProduct.imageUrl
       };
 
       final jsonString = json.encode(jsonResponse);
-      when(mockHttpClient.put(Uri.parse('${Urls.baseUrl}/${testProduct.id}'))
+      when(mockHttpClient.put(Uri.parse('${Urls.baseUrl}/${testProduct.id}'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(testProduct.toJson()),
+      )
       ).thenAnswer((_)async => http.Response(jsonString, 200));          
       final result = await productRemoteDataSourceImpl.updateProduct(testProduct);
 
@@ -139,11 +146,14 @@ const testProduct = ProductModel(
     }
   );
 
+
   test(
     'should throw a server exception when the response code is not 200',
     ()async{
 
-      when(mockHttpClient.put(Uri.parse('${Urls.baseUrl}/${testProduct.id}'))
+      when(mockHttpClient.put(Uri.parse('${Urls.baseUrl}/${testProduct.id}'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(testProduct.toJson()),)
       ).thenAnswer((_)async => http.Response(
         'Not Found', 404));
 

@@ -1,58 +1,51 @@
-// part of 'search_page_bloc.dart';
-
-
-// part of 'home_page_bloc.dart';
+import 'package:ecommerce_clean/features/product/domain/entities/product.dart';
 import 'package:equatable/equatable.dart';
 
-/// home page event
-
-sealed class HomePageEvent extends Equatable {
-  const HomePageEvent();
+sealed class ProductEvent extends Equatable {
+  const ProductEvent();
 
   @override
   List<Object> get props => [];
 }
-class LoadProductsEvent extends HomePageEvent{}
-
-// serach page event
-
-sealed class SearchPageEvent extends Equatable {
-  const SearchPageEvent();
-
-  @override
-  List<Object> get props => [];
-}
-//details
-
-// part of 'details_page_bloc.dart';
-
-sealed class DetailsPageEvent extends Equatable {
-  const DetailsPageEvent();
+final class LoadAllProductsEvent extends ProductEvent{
+  const LoadAllProductsEvent();
 
   @override
   List<Object> get props => [];
 }
 
-
-///add product
-// part of 'add_product_bloc.dart';
-
-sealed class AddProductEvent extends Equatable {
-  const AddProductEvent();
+final class GetSingleProductEvent  extends ProductEvent {
+  final String productId;
+  
+  const GetSingleProductEvent({required this.productId});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [productId];
 }
 
-///update product
+final class UpdateProductEvent extends ProductEvent {
 
-// part of 'update_product_bloc.dart';
-
-sealed class UpdateProductEvent extends Equatable {
-  const UpdateProductEvent();
+  final ProductEntity product;
+  const UpdateProductEvent({required this.product});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [product];
+}
+
+final class CreateProductEvent  extends ProductEvent {
+  final ProductEntity newProduct;
+  const CreateProductEvent({required this.newProduct});
+
+  @override
+  List<Object> get props => [newProduct];
+}
+
+final class DeleteProductEvent  extends ProductEvent {
+  final String productId;
+  const DeleteProductEvent({required this.productId});
+
+  @override
+  List<Object> get props => [productId];
 }
 
 

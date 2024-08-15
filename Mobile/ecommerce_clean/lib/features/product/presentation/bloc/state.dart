@@ -4,101 +4,121 @@ import 'package:ecommerce_clean/features/product/domain/entities/product.dart';
 import 'package:equatable/equatable.dart';
 
 ///home page state
-sealed class HomePageState extends Equatable {
-  const HomePageState();
+sealed class ProductState extends Equatable {
+  const ProductState();
   
   @override
   List<Object> get props => [];
 }
 
-// final class HomePageInitial extends HomePageState {}
-final class HomePageLoading extends HomePageState {}
-final class HomePageLoaded extends HomePageState{
+final class InitialState extends ProductState {}
+
+final class LoadingState extends ProductState {}
+
+final class LoadedAllProductState extends ProductState{
   final List<ProductEntity> product;
 
-  const HomePageLoaded({required this.product});
+  const LoadedAllProductState({required this.product});
 
   @override
   List<Object> get props => [product];
 }
-final class HomePageLoadingError extends HomePageState{
+
+final class LoadedSingleProductState extends ProductState{
+  final ProductEntity product;
+
+  const LoadedSingleProductState({required this.product});
+
+  @override
+  List<Object> get props => [product];
+}
+
+final class ErrorState extends ProductState{
   final String message;
-  const HomePageLoadingError({required this.message});
+  const ErrorState({required this.message});
 
   @override
   List<Object> get props => [message];
 }
 
-///search
+final class SuccessfulState extends ProductState{
+  final String message;
+  const SuccessfulState({required this.message});
 
-// part of 'search_page_bloc.dart';
-
-sealed class SearchPageState extends Equatable {
-  const SearchPageState();
-  
   @override
-  List<Object> get props => [];
+  List<Object> get props => [message];
 }
 
-final class SearchPageInitial extends SearchPageState {}
+// ///search
 
+// // part of 'search_page_bloc.dart';
 
-///details 
-
-
-// part of 'details_page_bloc.dart';
-
-sealed class DetailsPageState extends Equatable {
-  const DetailsPageState();
+// sealed class SearchPageState extends Equatable {
+//   const SearchPageState();
   
-  @override
-  List<Object> get props => [];
-}
+//   @override
+//   List<Object> get props => [];
+// }
 
-final class DetailsPageInitial extends DetailsPageState {}
-
-///add product
+// final class SearchPageInitial extends SearchPageState {}
 
 
-// part of 'add_product_bloc.dart';
+// ///details 
 
-sealed class AddProductState extends Equatable {
-  const AddProductState();
+
+// // part of 'details_page_bloc.dart';
+
+// sealed class DetailsPageState extends Equatable {
+//   const DetailsPageState();
   
-  @override
-  List<Object> get props => [];
-}
+//   @override
+//   List<Object> get props => [];
+// }
 
-final class AddProductInitial extends AddProductState {}
-final class AddProductLoading extends AddProductState {}
-final class AddProductLoaded extends AddProductState{
-  String name;
-  String catagory;
-  String description;
-  int price;
-  String imageUrl;
+// final class DetailsPageInitial extends DetailsPageState {}
 
-  AddProductLoaded.copyWith({
-    required this.name,
-    required this.catagory,
-    required this.description,
-    required this.price,
-    required this.imageUrl,
-  });
+// ///add product
+
+
+// // part of 'add_product_bloc.dart';
+
+// sealed class AddProductState extends Equatable {
+//   const AddProductState();
   
-}
+//   @override
+//   List<Object> get props => [];
+// }
 
-///update product
+// final class AddProductInitial extends AddProductState {}
+// final class AddProductLoading extends AddProductState {}
+// final class AddProductLoaded extends AddProductState{
+//   String name;
+//   String catagory;
+//   String description;
+//   int price;
+//   String imageUrl;
 
-// part of 'update_product_bloc.dart';
-
-sealed class UpdateProductState extends Equatable {
-  const UpdateProductState();
+//   AddProductLoaded.copyWith({
+//     required this.name,
+//     required this.catagory,
+//     required this.description,
+//     required this.price,
+//     required this.imageUrl,
+//   });
   
-  @override
-  List<Object> get props => [];
-}
+// }
 
-final class UpdateProductInitial extends UpdateProductState {}
+// ///update product
+
+// // part of 'update_product_bloc.dart';
+
+// sealed class UpdateProductState extends Equatable {
+//   const UpdateProductState();
+  
+//   @override
+//   List<Object> get props => [];
+// }
+
+// final class UpdateProductInitial extends UpdateProductState {}
 
 

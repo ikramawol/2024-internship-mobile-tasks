@@ -21,6 +21,10 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource{
   @override
   Future<void> addProduct(ProductModel product) async {
     final response = await client.post(Uri.parse(Urls.baseUrl),
+    headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode(product.toJson()),
     );
     if (response.statusCode != 201){
       throw ServerException();
@@ -58,10 +62,13 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource{
     }
     throw ServerException();
   }
-  
   @override
   Future<ProductModel> updateProduct(ProductModel product)async {
     final response = await client.put(Uri.parse('${Urls.baseUrl}/${product.id}'),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: json.encode(product.toJson()),
     );
     
     if (response.statusCode == 200){
@@ -69,6 +76,46 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource{
     }
     throw ServerException();
   }
+
+
+  // @override
+  // Future<ProductModel> updateProduct(ProductModel product)async {
+  //   final productResponse = await client.get(
+  //     Uri.parse('${Urls.baseUrl}/${product.id}'),
+  //      headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   );
+
+  //   if (productResponse.statusCode != 200) {
+  //     throw ServerException();
+  //   }
+
+  //   final productJson = json.decode(productResponse.body);
+  //   final _product = ProductModel.fromJson(productJson);
+
+  //   final updatedProduct = ProductModel(
+  //     id: _product.id, 
+  //     name: _product.name ?? _product.name,
+  //     description: _product.description ?? _product.description,
+  //     price: _product.price ?? _product.price,
+  //     category: _product.category ?? _product.category,
+  //     imageUrl: _product.imageUrl ?? _product.imageUrl,
+  //   );
+
+  //   final updateResponse = await client.put(
+  //   Uri.parse('${Urls.baseUrl}/${updatedProduct.id}'),
+  //   headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   body: json.encode(updatedProduct.toJson()),
+  // );
+
+  //   if (updateResponse.statusCode == 200){
+  //     return ProductModel.fromJson(json.decode(updateResponse.body));
+  //   }
+  //   throw ServerException();
+  // }
   
 
 }

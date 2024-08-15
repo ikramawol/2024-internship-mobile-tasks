@@ -376,10 +376,37 @@ class MockProductLocalDataSource extends _i1.Mock
   }
 
   @override
-  _i7.Future<void> cacheProduct({required _i3.ProductModel? productCache}) =>
+  _i7.Future<List<_i3.ProductModel>> getCacheAllProducts() =>
       (super.noSuchMethod(
         Invocation.method(
-          #cacheProduct,
+          #getCacheAllProducts,
+          [],
+        ),
+        returnValue:
+            _i7.Future<List<_i3.ProductModel>>.value(<_i3.ProductModel>[]),
+      ) as _i7.Future<List<_i3.ProductModel>>);
+
+  @override
+  _i7.Future<_i3.ProductModel> getCacheProduct(String? productId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCacheProduct,
+          [productId],
+        ),
+        returnValue: _i7.Future<_i3.ProductModel>.value(_FakeProductModel_1(
+          this,
+          Invocation.method(
+            #getCacheProduct,
+            [productId],
+          ),
+        )),
+      ) as _i7.Future<_i3.ProductModel>);
+
+  @override
+  _i7.Future<void> addCacheProduct({required _i3.ProductModel? productCache}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addCacheProduct,
           [],
           {#productCache: productCache},
         ),
@@ -388,19 +415,27 @@ class MockProductLocalDataSource extends _i1.Mock
       ) as _i7.Future<void>);
 
   @override
-  _i7.Future<_i3.ProductModel> getLastProduct() => (super.noSuchMethod(
+  _i7.Future<void> deleteCacheProduct(String? productId) => (super.noSuchMethod(
         Invocation.method(
-          #getLastProduct,
-          [],
+          #deleteCacheProduct,
+          [productId],
         ),
-        returnValue: _i7.Future<_i3.ProductModel>.value(_FakeProductModel_1(
-          this,
-          Invocation.method(
-            #getLastProduct,
-            [],
-          ),
-        )),
-      ) as _i7.Future<_i3.ProductModel>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<void> updateCacheProduct(
+          {required _i3.ProductModel? productCache}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateCacheProduct,
+          [],
+          {#productCache: productCache},
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 }
 
 /// A class which mocks [SharedPreferences].

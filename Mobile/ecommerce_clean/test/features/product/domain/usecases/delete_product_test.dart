@@ -18,7 +18,7 @@ void main(){
     ProductEntity(
       id : '1',
       name: 'Nike shoes',
-      catagory: 'Men\'s',
+      category: 'Men\'s',
       description: 'its a brand shoes',
       price: 100,
       imageUrl: 'image',

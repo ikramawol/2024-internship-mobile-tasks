@@ -6,24 +6,24 @@ class ProductEntity extends Equatable {
   const ProductEntity({
     required this.id,
     required this.name, 
-    required this.catagory, 
+    this.category, 
     required this.description,
     required this.price, 
-    required this.imageUrl, 
+    this.imageUrl,
   });
 
 final String id;   
 final String name;
-final String catagory;
+final String? category;
 final String description;
 final int price;
-final String imageUrl;
+final String? imageUrl;
 
 @override
-List<Object> get props => [
+List<Object?> get props => [
   id, 
   name,
-  catagory,
+  category,
   description,
   price,
   imageUrl,

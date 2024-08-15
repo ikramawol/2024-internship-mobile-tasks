@@ -5,14 +5,14 @@ class ProductModel extends ProductEntity{
   const ProductModel({
     required String id,
     required String name,
-    required String catagory,
+    String? category,
     required String description,
     required int price,
-    required String imageUrl,
+    String? imageUrl,
   }): super(
     id: id,
     name: name,
-    catagory: catagory,
+    category: category,
     description: description,
     price: price,
     imageUrl: imageUrl,
@@ -21,18 +21,18 @@ class ProductModel extends ProductEntity{
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
     id: json['id'] ?? '',
     name: json['name'] ?? '',
-    catagory: json['catagory'] ?? '',
+    category: json['category'],
     description: json['description'] ?? '',
     price: json['price'] is int
             ? json['price']
             : int.tryParse(json['price'].toString()) ?? 0,
-    imageUrl: json['imageUrl'] ?? '',
+    imageUrl: json['imageUrl'],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
-    "catagory": catagory,
+    "category": category,
     "description": description,
     "price": price,
     "imageUrl": imageUrl,
@@ -41,7 +41,7 @@ class ProductModel extends ProductEntity{
   ProductEntity toEntity() => ProductEntity(
     id: id,
     name: name,
-    catagory: catagory,
+    category: category,
     description: description,
     price: price,
     imageUrl: imageUrl,

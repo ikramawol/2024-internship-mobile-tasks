@@ -22,7 +22,7 @@ void main(){
     ProductEntity(
     id: '1',
     name: 'Nike shoes',
-    catagory: 'Men\'s',
+    category: 'Men\'s',
     description: 'its a brand shoes',
     price: 100,
     imageUrl: 'image',
@@ -30,7 +30,7 @@ void main(){
   ProductEntity(
     id: '2',
     name: 'Adidas shoes',
-    catagory: 'Men\'s',
+    category: 'Men\'s',
     description: 'its a shoes brand',
     price: 100,
     imageUrl: 'image',
