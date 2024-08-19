@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:ecommerce_clean/core/constants/constants.dart';
 import 'package:ecommerce_clean/core/error/exception.dart';
 import 'package:ecommerce_clean/features/product/data/models/product_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 abstract class ProductRemoteDataSource{
 
@@ -20,26 +22,51 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource{
   
   @override
   Future<void> addProduct(ProductModel product) async {
-    final response = await client.post(Uri.parse(Urls.baseUrl),
-    headers: {
-        'Content-Type': 'application/json',
-      },
-      body: json.encode(product.toJson()),
+    try {
+    File imageFile = File(product.imageUrl!);
+      List<int> imageBytes = await imageFile.readAsBytes();
+
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products'),
     );
-    if (response.statusCode != 201){
-      throw ServerException();
+
+    request.fields.addAll({
+      'name': product.name,
+      'description': product.description,
+      'price': product.price.toString(),
+    });
+
+    request.files.add(http.MultipartFile.fromBytes(
+      'image',
+      imageBytes,
+      filename: 'fg.jpg',
+      contentType: MediaType('image', 'jpeg'),
+    ));
+
+    http.StreamedResponse response = await request.send();
+
+    print('Response code: ${response.statusCode}');
+
+    if (response.statusCode == 201) {
+      print('Success: ${await response.stream.bytesToString()}');
+    } else {
+      print('Failed: ${response.reasonPhrase}');
     }
+  } catch (e) {
+    print('Error during addProduct: $e');
   }
-  
+}
   @override
   Future<void> deleteProduct(String id) async {
     final response = await client.delete(Uri.parse('${Urls.baseUrl}/$id'));
-    
-    if (response.statusCode != 204){
-      throw ServerException();
+
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      print("Product deleted successfully.");
+    } else {
+      throw Exception("Failed to delete product: ${response.reasonPhrase}");
     }
   }
-  
   @override
   Future<List<ProductModel>> getAllProduct() async {
     final response = await client.get(Uri.parse(Urls.baseUrl));
@@ -63,59 +90,33 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource{
     throw ServerException();
   }
   @override
-  Future<ProductModel> updateProduct(ProductModel product)async {
-    final response = await client.put(Uri.parse('${Urls.baseUrl}/${product.id}'),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: json.encode(product.toJson()),
-    );
-    
-    if (response.statusCode == 200){
-      return ProductModel.fromJson(json.decode(response.body));
+  Future<ProductModel> updateProduct(ProductModel product) async {
+    try {
+      var request = http.MultipartRequest(
+        'PUT',
+        Uri.parse('${Urls.baseUrl}/${product.id}'),
+      );
+
+      request.fields.addAll({
+        'name': product.name,
+        'description': product.description,
+        'price': product.price.toString(),
+      });   
+
+      request.headers.addAll({
+        'Content-Type': 'multipart/form-data',
+      });
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        final responseBody = await response.stream.bytesToString();
+        return ProductModel.fromJson(json.decode(responseBody));
+      } else {
+        throw Exception('Failed to update product: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      throw Exception('Error during updateProduct: $e');
     }
-    throw ServerException();
   }
-
-
-  // @override
-  // Future<ProductModel> updateProduct(ProductModel product)async {
-  //   final productResponse = await client.get(
-  //     Uri.parse('${Urls.baseUrl}/${product.id}'),
-  //      headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   );
-
-  //   if (productResponse.statusCode != 200) {
-  //     throw ServerException();
-  //   }
-
-  //   final productJson = json.decode(productResponse.body);
-  //   final _product = ProductModel.fromJson(productJson);
-
-  //   final updatedProduct = ProductModel(
-  //     id: _product.id, 
-  //     name: _product.name ?? _product.name,
-  //     description: _product.description ?? _product.description,
-  //     price: _product.price ?? _product.price,
-  //     category: _product.category ?? _product.category,
-  //     imageUrl: _product.imageUrl ?? _product.imageUrl,
-  //   );
-
-  //   final updateResponse = await client.put(
-  //   Uri.parse('${Urls.baseUrl}/${updatedProduct.id}'),
-  //   headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   body: json.encode(updatedProduct.toJson()),
-  // );
-
-  //   if (updateResponse.statusCode == 200){
-  //     return ProductModel.fromJson(json.decode(updateResponse.body));
-  //   }
-  //   throw ServerException();
-  // }
-  
-
 }

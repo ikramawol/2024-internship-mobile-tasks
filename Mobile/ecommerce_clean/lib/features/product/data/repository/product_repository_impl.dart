@@ -70,8 +70,8 @@ class ProductRepositoryImpl extends ProductRepository {
   Future<Either<Failure, void>> addProduct(ProductEntity product) async {
     if (await internetConnectionChecker.hasConnection) {
       try {
-        await productRemoteDataSource.addProduct(product as ProductModel);
-        await productLocalDataSource.addCacheProduct(productCache: product as ProductModel);  // Add product to cache
+        await productRemoteDataSource.addProduct(product.toModel());
+        await productLocalDataSource.addCacheProduct(productCache: product.toModel());  // Add product to cache
         return const Right(unit);
       } on ServerException {
         return const Left(ServerFailure('An error has occurred in the server'));
@@ -87,8 +87,8 @@ class ProductRepositoryImpl extends ProductRepository {
   Future<Either<Failure, ProductEntity>> updateProduct(ProductEntity product) async {
     if (await internetConnectionChecker.hasConnection) {
       try {
-        final result = await productRemoteDataSource.updateProduct(product as ProductModel);
-        await productLocalDataSource.updateCacheProduct(productCache: product as ProductModel);  // Update product in cache
+        final result = await productRemoteDataSource.updateProduct(product.toModel());
+        await productLocalDataSource.updateCacheProduct(productCache: product.toModel());  // Update product in cache
         return Right(result.toEntity());
       } on ServerException {
         return const Left(ServerFailure('An error has occurred in the server'));
@@ -117,6 +117,5 @@ class ProductRepositoryImpl extends ProductRepository {
     }
   }
 }
-
 
 

@@ -5,11 +5,11 @@ import 'package:ecommerce_clean/features/product/data/data_sources/local_data_so
 import 'package:ecommerce_clean/features/product/data/data_sources/remote_data_source.dart';
 import 'package:ecommerce_clean/features/product/data/repository/product_repository_impl.dart';
 import 'package:ecommerce_clean/features/product/domain/repository/product_repository.dart';
-import 'package:ecommerce_clean/features/product/domain/useCases/add_product.dart';
-import 'package:ecommerce_clean/features/product/domain/useCases/delete_product.dart';
-import 'package:ecommerce_clean/features/product/domain/useCases/get_all_product.dart';
-import 'package:ecommerce_clean/features/product/domain/useCases/get_product.dart';
-import 'package:ecommerce_clean/features/product/domain/useCases/update_product.dart';
+import 'package:ecommerce_clean/features/product/domain/usecases/add_product.dart';
+import 'package:ecommerce_clean/features/product/domain/usecases/delete_product.dart';
+import 'package:ecommerce_clean/features/product/domain/usecases/get_all_product.dart';
+import 'package:ecommerce_clean/features/product/domain/usecases/get_product.dart';
+import 'package:ecommerce_clean/features/product/domain/usecases/update_product.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';

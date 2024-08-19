@@ -19,6 +19,7 @@ class EcommerceApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      
       home: BlocProvider(
         create: (context) => GetIt.instance<ProductBloc>(),
         child: const HomePage(),

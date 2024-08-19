@@ -2,6 +2,8 @@ import 'package:ecommerce_clean/features/product/domain/entities/product.dart';
 // import 'package:ecommerce_clean/features/product/presentation/pages/add_product.dart';
 import 'package:ecommerce_clean/features/product/presentation/pages/home.dart';
 import 'package:ecommerce_clean/features/product/presentation/widget/custom_card.dart';
+import 'package:ecommerce_clean/features/product/presentation/widget/label_text_field.dart';
+import 'package:ecommerce_clean/features/product/presentation/widget/range_slider.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:ecommerce_clean/features/product/presentation/widget/label_text_field.dart';
@@ -215,91 +217,6 @@ class _SearchState extends State<Search> {
             ],
           ],
         ),
-      ),
-    );
-  }
-}
-
-
-
-class LabelAndTextField extends StatelessWidget {
-  final String label;
-  final int maxLines;
-  final Widget? suffixIcon;
-
-  const LabelAndTextField({
-    super.key,
-    required this.label,
-    this.maxLines = 1,
-    this.suffixIcon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 8),
-        TextField(
-          maxLines: maxLines,
-          decoration: InputDecoration(
-            fillColor: const Color(0xFFF0F0F0),
-            filled: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide.none,
-            ),
-            suffixIcon: suffixIcon,
-          ),
-        ),
-      ],
-    );
-  }
-}
-class RangeSliderWidget extends StatefulWidget {
-  const RangeSliderWidget({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _RangeSliderWidgetState createState() => _RangeSliderWidgetState();
-}
-
-class _RangeSliderWidgetState extends State<RangeSliderWidget> {
-  RangeValues _currentRangeValues = const RangeValues(0, 100);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          RangeSlider(
-            values: _currentRangeValues,
-            min: 0,
-            max: 100,
-            divisions: 10,
-            labels: RangeLabels(
-              _currentRangeValues.start.round().toString(),
-              _currentRangeValues.end.round().toString(),
-            ),
-            onChanged: (RangeValues values) {
-              setState(() {
-                _currentRangeValues = values;
-              });
-            },
-            activeColor: const Color(0xFF3E50F3),
-            inactiveColor: const Color(0xFFD9D9D9),
-          ),
-          const SizedBox(height: 20),
-        ],
       ),
     );
   }

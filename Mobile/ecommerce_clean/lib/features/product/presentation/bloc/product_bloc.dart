@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce_clean/features/product/domain/repository/product_repository.dart';
-import 'package:ecommerce_clean/features/product/presentation/bloc/event.dart';
-import 'package:ecommerce_clean/features/product/presentation/bloc/state.dart';
+import 'package:ecommerce_clean/features/product/presentation/bloc/product_event.dart';
+import 'package:ecommerce_clean/features/product/presentation/bloc/product_state.dart';
 
 
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
+  
   final ProductRepository productRepository;
+  
 
   ProductBloc(this.productRepository) : super(InitialState()) {
 
@@ -14,6 +16,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<LoadAllProductsEvent>((event, emit) async{
       emit(LoadingState());
       final products =  await productRepository.getAllProduct();
+      print(products);
 
       products.fold(
         (failure) => emit(const ErrorState(message : 'Failed to load products')),
@@ -38,6 +41,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         (product) => emit(LoadedSingleProductState(product: product)),
       );
     });
+
     on<CreateProductEvent>((event, emit) async {
       emit(LoadingState());
       final product = await productRepository.addProduct(event.newProduct);
@@ -46,6 +50,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         (product) => emit(const SuccessfulState(message: 'Product succesfully created')),
       );
     });
+    
     on<DeleteProductEvent>((event, emit) async {
       emit(LoadingState());
       final product = await productRepository.deleteProduct(event.productId);

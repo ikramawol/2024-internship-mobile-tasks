@@ -49,6 +49,33 @@ final class SuccessfulState extends ProductState{
   List<Object> get props => [message];
 }
 
+final class DeleteProductState extends ProductState{
+  final String message;
+  const DeleteProductState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+
+// final class AddProductInitial extends ProductState {}
+// final class ProductSubmiting extends ProductState {}
+// final class ProductSubmited extends ProductState{
+//   String name;
+//   String catagory;
+//   String description;
+//   int price;
+//   String imageUrl;
+
+//   ProductSubmited.copyWith({
+//     required this.name,
+//     required this.catagory,
+//     required this.description,
+//     required this.price,
+//     required this.imageUrl,
+//   });
+  
+// }
 // ///search
 
 // // part of 'search_page_bloc.dart';
@@ -82,16 +109,16 @@ final class SuccessfulState extends ProductState{
 
 // // part of 'add_product_bloc.dart';
 
-// sealed class AddProductState extends Equatable {
-//   const AddProductState();
+// sealed class ProductState extends Equatable {
+//   const ProductState();
   
 //   @override
 //   List<Object> get props => [];
 // }
 
-// final class AddProductInitial extends AddProductState {}
-// final class AddProductLoading extends AddProductState {}
-// final class AddProductLoaded extends AddProductState{
+// final class AddProductInitial extends ProductState {}
+// final class AddProductLoading extends ProductState {}
+// final class AddProductLoaded extends ProductState{
 //   String name;
 //   String catagory;
 //   String description;

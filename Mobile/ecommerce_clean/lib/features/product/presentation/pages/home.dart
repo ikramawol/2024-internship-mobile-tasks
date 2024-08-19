@@ -1,10 +1,10 @@
 // import 'package:ecommerce_clean/features/product/domain/entities/product.dart';
 import 'package:ecommerce_clean/features/product/domain/repository/product_repository.dart';
-import 'package:ecommerce_clean/features/product/presentation/bloc/event.dart';
 // import 'package:ecommerce_clean/features/product/domain/useCases/add_product.dart';
 // import 'package:ecommerce_clean/features/product/presentation/bloc/event.dart';
 import 'package:ecommerce_clean/features/product/presentation/bloc/product_bloc.dart';
-import 'package:ecommerce_clean/features/product/presentation/bloc/state.dart';
+import 'package:ecommerce_clean/features/product/presentation/bloc/product_event.dart';
+import 'package:ecommerce_clean/features/product/presentation/bloc/product_state.dart';
 import 'package:ecommerce_clean/features/product/presentation/pages/add_product.dart';
 import 'package:ecommerce_clean/features/product/presentation/pages/search.dart';
 import 'package:ecommerce_clean/features/product/presentation/widget/custom_card.dart';
@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productRepository = GetIt.instance<ProductRepository>();
-    
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -118,9 +118,18 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => const Add()),
+          // );
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const Add()),
+            MaterialPageRoute(
+              builder: (context) => BlocProvider<ProductBloc>(
+                create: (context) => ProductBloc(productRepository),
+                child: Add(),
+              ),
+            ),
           );
         },
         backgroundColor: const Color(0xFF3E50F3),
@@ -132,7 +141,8 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: BlocProvider(
-        create: (context) => ProductBloc(productRepository)..add(const LoadAllProductsEvent()),
+        create: (context) =>
+            ProductBloc(productRepository)..add(const LoadAllProductsEvent()),
         child: Padding(
           padding: const EdgeInsets.all(14.0),
           child: Column(
@@ -193,11 +203,11 @@ class HomePage extends StatelessWidget {
                       // final product = state.product;
                       return SingleChildScrollView(
                         child: Column(
-                          children: state.product.map((product) {
+                          children: state.product.map((item) {
                             return Column(
                               children: [
                                 // const SizedBox(height: 15),
-                                CustomeCard(product: product),
+                                CustomeCard(product: item),
                                 const SizedBox(height: 15),
                               ],
                             );
@@ -223,3 +233,5 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+ 

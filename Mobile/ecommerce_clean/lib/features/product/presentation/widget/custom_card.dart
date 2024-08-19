@@ -26,7 +26,7 @@ class CustomeCard extends StatelessWidget {
         // width: 400,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
               color: const Color.fromARGB(255, 235, 235, 235).withOpacity(0.3),

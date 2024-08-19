@@ -2,7 +2,7 @@
 
 // import 'package:flutter/foundation.dart';
 import 'package:dartz/dartz.dart';
-import 'package:ecommerce_clean/features/product/domain/useCases/get_all_product.dart';
+import 'package:ecommerce_clean/features/product/domain/usecases/get_all_product.dart';
 import 'package:flutter_test/flutter_test.dart';
 // import 'package:ecommerce_clean/features/product/domain/usecases/get_all_product.dart';
 import 'package:ecommerce_clean/features/product/domain/entities/product.dart';
