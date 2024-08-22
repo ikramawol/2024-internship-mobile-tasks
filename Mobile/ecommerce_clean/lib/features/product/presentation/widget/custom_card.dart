@@ -39,9 +39,15 @@ class CustomeCard extends StatelessWidget {
 
         child: Column(
           children: [
-            Image.network(
-              product.imageUrl.toString(),
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10), // Apply rounded corners to the image
+              child: Image.network(
+                product.imageUrl.toString(),
+                fit: BoxFit.cover,
+                height: 180, // Set a constant height for the image
+                width: double.infinity,
+              
+            ),
             ),
             const SizedBox(height: 10),
             Padding(

@@ -216,7 +216,7 @@ class _DetailsState extends State<Details> {
                                   ),
                                 ),
                                 child: const Text(
-                                  'CLEAR',
+                                  'DELETE',
                                   style: TextStyle(
                                     color: Colors.red,
                                     fontWeight: FontWeight.bold,

@@ -108,8 +108,8 @@ class _AddState extends State<Add> {
               //   MaterialPageRoute(builder: (context) => const HomePage()),
               // );
                  Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => const HomePage()),
-                          (route) => false,);
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  (route) => false,);
             } else if (state is ErrorState) {
               Navigator.pop(context); // Close the dialog
               ScaffoldMessenger.of(context).showSnackBar(
@@ -280,7 +280,7 @@ class _AddState extends State<Add> {
                             ),
                           ),
                           child: const Text(
-                            'DELETE',
+                            'CLEAR',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.red,

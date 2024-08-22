@@ -6,6 +6,7 @@ import 'package:ecommerce_clean/core/error/exception.dart';
 import 'package:ecommerce_clean/features/product/data/models/product_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class ProductRemoteDataSource{
 
@@ -25,12 +26,17 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource{
     try {
     File imageFile = File(product.imageUrl!);
       List<int> imageBytes = await imageFile.readAsBytes();
-
+    
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var headers = {
+        'Authorization': "Bearer ${prefs.getString('auth_token')}",
+        'Content-Type': 'application/json',
+         };
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products'),
+      Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v2/products'),
     );
-
+    request.headers.addAll(headers);
     request.fields.addAll({
       'name': product.name,
       'description': product.description,
@@ -59,7 +65,12 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource{
 }
   @override
   Future<void> deleteProduct(String id) async {
-    final response = await client.delete(Uri.parse('${Urls.baseUrl}/$id'));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+      var headers = {
+        'Authorization': "Bearer ${prefs.getString('auth_token')}",
+        'Content-Type': 'application/json',
+         };
+    final response = await client.delete(Uri.parse('${Urls.baseUrl}/$id', ), headers: headers);
 
     if (response.statusCode == 200 || response.statusCode == 204) {
       print("Product deleted successfully.");
@@ -69,7 +80,12 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource{
   }
   @override
   Future<List<ProductModel>> getAllProduct() async {
-    final response = await client.get(Uri.parse(Urls.baseUrl));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+      var headers = {
+        'Authorization': "Bearer ${prefs.getString('auth_token')}",
+        'Content-Type': 'application/json',
+         };
+    final response = await client.get(Uri.parse(Urls.baseUrl), headers : headers);
 
     if (response.statusCode == 200){
       final Map<String, dynamic> decodedJson = json.decode(response.body);
@@ -82,41 +98,40 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource{
   
   @override
   Future<ProductModel> getProduct(String id) async {
-    final response = await client.get(Uri.parse('${Urls.baseUrl}/$id'));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+      var headers = {
+        'Authorization': "Bearer ${prefs.getString('auth_token')}",
+        'Content-Type': 'application/json',
+         };
+
+    final response = await client.get(Uri.parse('${Urls.baseUrl}/$id',), headers: headers);
     
     if (response.statusCode == 200){
       return ProductModel.fromJson(json.decode(response.body));
     }
     throw ServerException();
   }
-  @override
-  Future<ProductModel> updateProduct(ProductModel product) async {
-    try {
-      var request = http.MultipartRequest(
-        'PUT',
-        Uri.parse('${Urls.baseUrl}/${product.id}'),
-      );
+   @override
+  Future<ProductModel> updateProduct(product) async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+      var headers = {
+        'Authorization': "Bearer ${prefs.getString('auth_token')}",
+        'Content-Type': 'application/json',
+         };
+    final response = await client.put(Uri.parse('${Urls.baseUrl}/${product.id}'),
+        headers: headers,
+        body: json.encode(
+            {'name': product.name, 'description': product.description, 'price': product.price}));
 
-      request.fields.addAll({
-        'name': product.name,
-        'description': product.description,
-        'price': product.price.toString(),
-      });   
 
-      request.headers.addAll({
-        'Content-Type': 'multipart/form-data',
-      });
-
-      http.StreamedResponse response = await request.send();
-
-      if (response.statusCode == 200) {
-        final responseBody = await response.stream.bytesToString();
-        return ProductModel.fromJson(json.decode(responseBody));
-      } else {
-        throw Exception('Failed to update product: ${response.reasonPhrase}');
-      }
-    } catch (e) {
-      throw Exception('Error during updateProduct: $e');
-    }
+  if (response.statusCode == 200) {
+    final jsonData = json.decode(response.body) as Map<String, dynamic>;
+    final productData = jsonData['data'];
+    return ProductModel.fromJson(productData);
+  } else if (response.statusCode == 404) {
+    throw Exception('Product with ID $product.id not found');
+  } else {
+    throw ServerException();
   }
+}
 }
